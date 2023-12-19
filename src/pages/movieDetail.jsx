@@ -7,15 +7,15 @@ import { getDayDate } from '../utils/processDate';
 import { Link } from 'react-router-dom';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
+import { useBooking } from '../context/booking-context';
+import { toast } from 'react-toastify';
 export default function MovieDetail() {
   const [movie, setMovie] = useState([]);
   const [showtime, setShowtime] = useState({});
   const [loading, setLoading] = useState(true);
-  // const { setMovieData, setShowtimeData } = useBooking()
+  const { setMovieData, setShowtimeData } = useBooking()
   const { id } = useParams();
   const navigate = useNavigate();
-  console.log(movie)
   useEffect(() => {
       axios
       .get(`/movies/${id}`)
@@ -31,11 +31,12 @@ export default function MovieDetail() {
   }, [id]);
 
   const handleBook = () => {
-    // setMovieData(movie)
-    // setShowtimeData(showtime)
-    navigate('/booking')
+    if (Object.keys(showtime).length === 0) return toast.warn('Please select showtime first')
+    setMovieData(movie)
+    setShowtimeData(showtime)
+    navigate('/transactions')
   }
-
+  if(loading) return <p>Loading...</p>
   return (
     <Layout>
       <section className='max-w-4xl md:mx-auto space-y-4 my-4 mx-5 rounded-lg'>

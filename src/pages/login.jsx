@@ -1,30 +1,16 @@
 import React,{ useState } from 'react'
 import { Link } from 'react-router-dom'
-import axios from '../api/axios';
+import { useAuth } from '../context/auth-context';
 import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
-
 export default function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false);
+  const { login, loading } = useAuth();
   const navigate = useNavigate();
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setLoading(true)
-    axios.post("/login", {
-      username: username,
-      password: password,
-    }).then((res) => {
-      localStorage.setItem("SEACINEMA_TOKEN", res.data.accessToken);
-      toast("Login Success")
-      navigate("/");
-    }).catch((err) => {
-      toast.error(err.response.data.message)
-    }).finally(()=>{
-      setLoading(false)
-      window.location.reload()
-    })
+  const handleSubmit = async(e) => {
+    e.preventDefault()
+    login(username, password)
+    navigate('/')
   }
   return (
     <section className='grid lg:grid-cols-2 min-h-screen bg-gray-200 px-5 md:px-0 md:gap-5'>

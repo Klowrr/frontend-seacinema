@@ -38,9 +38,9 @@ export function Profile() {
 export const MyProfile = () => {
   const { user,signOut } = useAuth()
   const [data, setData] = useState({
-    name: user.name,
-    age: user.age,
-    username: user.username,
+    name: user?.name,
+    age: user?.age,
+    username: user?.username,
   })
   const handleChange = (e) => {
     setData({
@@ -103,7 +103,6 @@ export const MyWallet = () => {
       total:value
     })
     .then((res)=>{
-      console.log(res.data)
       toast.success(`Top Up Success`)
     })
     .catch((err)=>{
@@ -121,7 +120,6 @@ export const MyWallet = () => {
       total:value
     })
     .then((res)=>{
-      console.log(res.data)
       toast.success(`Withdraw Success`)
     })
     .catch((err)=>{
@@ -136,7 +134,7 @@ export const MyWallet = () => {
     <section className='max-w-lg mx-auto space-y-5'>
       <section className={`${showInput ? 'hidden':'block'} bg-blue-400 p-4 rounded-lg text-center`}>
         <h1 className='text-white text-lg'>Total Balance</h1>
-        <p className='text-white text-2xl font-bold'>IDR {user.balance}</p>
+        <p className='text-white text-2xl font-bold'>IDR {user?.balance}</p>
       </section>
       <section className={`${showInput ? 'block':'hidden'} space-y-4 bg-blue-400 p-4 rounded-lg`}>
         <h1 className='text-white text-lg font-bold'>{isTopup?'Top Up': 'Withdraw'}</h1>

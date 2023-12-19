@@ -9,9 +9,8 @@ export default function MovieList() {
     .get('/movies')
     .then(res => setMovies(res.data))
   }, []);
-  console.log(movies)
   return (
-    <section className='grid grid-cols-2 gap-5 md:grid-cols-5 lg:grid-cols-6 max-w-6xl mx-auto p-4'>
+    <section className='grid grid-cols-2 gap-5 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-6 max-w-6xl mx-auto p-4'>
       {movies.map((movie)=>{
         return <MovieItem key={movie._id} movieData={movie} />
       })}

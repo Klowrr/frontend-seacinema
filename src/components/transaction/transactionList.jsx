@@ -8,7 +8,6 @@ export default function TransactionList() {
     axios
     .get(`/transactions`)
     .then((res)=>{
-      console.log(res.data)
       setTransaction(res.data)
     })
     .catch((err)=>{

@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { useAuth } from "../context/auth-context";
 
-const Navbar = ({user}) => {
+const Navbar = () => {
+  const {user, isAuthenticated} = useAuth()
   const [open, setOpen] = useState(false);
   return (
     <header className={`flex w-full items-center h-[10vh] shadow-md`}>
@@ -32,13 +34,13 @@ const Navbar = ({user}) => {
                 <ul className="block lg:flex">
                   <ListItem NavLink="/" className='hidden lg:block'>Home</ListItem>
                   <ListItem NavLink="/profile" className='lg:hidden'>Profile</ListItem>
-                  <ListItem NavLink="/ticket">Ticket</ListItem>
+                  <ListItem NavLink="/tickets">Ticket</ListItem>
                   <ListItem NavLink="/about">About</ListItem>
                 </ul>
               </nav>
             </div>
             <div className="hidden justify-end items-center pr-16 sm:flex lg:pr-0">
-              {user.logged ? (
+              {isAuthenticated ? (
                 <Link to='/profile'>Halo {user.name}</Link>
               ):(
                 <>

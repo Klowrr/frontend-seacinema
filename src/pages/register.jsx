@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
-import axios from '../api/axios';
 import { toast } from 'react-toastify';
-import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/auth-context';
 
 export default function Register() {
+  const { register, loading } = useAuth()
   const [data, setData] = useState({
     name: "",
     age: "",
@@ -13,8 +13,6 @@ export default function Register() {
     confPassword: "",
   });
 
-  const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
   const handleChange = (e) => {
     setData({
       ...data,
@@ -24,19 +22,9 @@ export default function Register() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setLoading(true)
-    console.log(data)
     if (data.password !== data.confPassword) return toast.error("Password and Confirm Password must be same");
     delete data.confPassword;
-    axios.post("/register", data).then((res) => {
-      toast("Account Successfully Created")
-      navigate("/login");
-    }).catch((err) => {
-      setLoading(false)
-      toast.error(err.response.data.message)
-    }).finally(()=>{
-      setLoading(false)
-    })
+    register(data)
   }
   return (
     <section className='grid lg:grid-cols-2 min-h-screen bg-gray-200 px-5 md:px-0 md:gap-5'>
