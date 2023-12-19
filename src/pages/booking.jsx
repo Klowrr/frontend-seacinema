@@ -73,9 +73,9 @@ export default function Booking() {
   return (
     <Layout>
       <section className='mx-auto max-w-lg p-4 space-y-8 lg:space-y-0 lg:max-w-none lg:grid lg:grid-cols-[1fr_auto_1fr] lg:gap-4'>
-        <section>
+        <section className='justify-center'>
           <h1 className='text-xl font-bold'>{movieData.title}</h1>
-          <div className='flex gap-4 my-2 lg:flex-col'>
+          <div className='flex gap-4 my-2'>
             <div className='flex items-center gap-2 '>
               <div className='w-5 h-5 cursor-pointer rounded-md flex justify-center items-center shadow-lg text-white bg-green-500'/>
               <h6>Selected</h6>
@@ -88,6 +88,11 @@ export default function Booking() {
               <div className='w-5 h-5 cursor-pointer rounded-md flex justify-center items-center shadow-lg text-gray-700 border-2'/>
               <h6>Available</h6>
             </div>
+          </div>
+          <div className='hidden lg:block'>
+            <img src={movieData.poster} alt="moviePoster"className='w-[15rem] rounded-lg my-3'/>
+            <h4>Description</h4>
+            <p>{movieData.description}</p>
           </div>
         </section>
         <section className=''>
