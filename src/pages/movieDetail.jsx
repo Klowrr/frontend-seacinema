@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import Layout from '../layouts/layout'
 import axios from '../api/axios';
 import { useParams, useNavigate } from 'react-router-dom';
 import ShowtimeList from '../components/showtime/showtimeList';
@@ -38,38 +37,36 @@ export default function MovieDetail() {
   }
   if(loading) return <p>Loading...</p>
   return (
-    <Layout>
-      <section className='max-w-4xl md:mx-auto space-y-4 my-4 mx-5 rounded-lg'>
-        <Link to='/'>&lt; Back</Link>
-        <section className='flex flex-wrap shadow-lg'>
-          <img src={movie.poster} className='object-cover h-[50vh] md:h-[70vh] mx-auto lg:mx-0' alt='movie-poster'/>
-          <div className='p-4 flex flex-col justify-between flex-1'>
-            <section className='space-y-4'>
-              <div>
-                <h1 className='text-2xl font-bold'>{movie.title} <span className='text-sm font-normal'>{getDayDate(movie.release_date)}</span></h1>
-                <div className='mt-2'><span className='bg-blue-300 px-2 rounded'>R {movie.age_rating}</span></div>
-              </div>
-              <div className='flex items-center space-x-2'>
-                <h1 className='text-lg font-bold '> Rating :</h1>
-                <FontAwesomeIcon icon={faStar} size='sm' className='text-yellow-400'/>
-                <p>({movie.rating})</p>
-              </div>
-              <div>
-                <h3 className='font-bold text-lg'>Description</h3>
-                <p>{movie.description}</p>
-              </div>
-              <div>
-                <h3 className='font-bold text-lg'>Showtimes</h3>
-                <ShowtimeList movieId={id} setShowtime={setShowtime} showtime={showtime}/>
-              </div>
-            </section>
-            <div className='flex items-center justify-end gap-4'>
-              <h1 className='text-lg font-bold'>IDR {movie.price}</h1>
-              <button className='btn-primary' onClick={handleBook}>Book</button>
+    <section className='max-w-4xl md:mx-auto space-y-4 my-4 mx-5 rounded-lg'>
+      <Link to='/'>&lt; Back</Link>
+      <section className='flex flex-wrap shadow-lg'>
+        <img src={movie.poster} className='object-cover h-[50vh] md:h-[70vh] mx-auto lg:mx-0' alt='movie-poster'/>
+        <div className='p-4 flex flex-col justify-between flex-1'>
+          <section className='space-y-4'>
+            <div>
+              <h1 className='text-2xl font-bold'>{movie.title} <span className='text-sm font-normal'>{getDayDate(movie.release_date)}</span></h1>
+              <div className='mt-2'><span className='bg-blue-300 px-2 rounded'>R {movie.age_rating}</span></div>
             </div>
+            <div className='flex items-center space-x-2'>
+              <h1 className='text-lg font-bold '> Rating :</h1>
+              <FontAwesomeIcon icon={faStar} size='sm' className='text-yellow-400'/>
+              <p>({movie.rating})</p>
+            </div>
+            <div>
+              <h3 className='font-bold text-lg'>Description</h3>
+              <p>{movie.description}</p>
+            </div>
+            <div>
+              <h3 className='font-bold text-lg'>Showtimes</h3>
+              <ShowtimeList movieId={id} setShowtime={setShowtime} showtime={showtime}/>
+            </div>
+          </section>
+          <div className='flex items-center justify-end gap-4'>
+            <h1 className='text-lg font-bold'>IDR {movie.price}</h1>
+            <button className='btn-primary' onClick={handleBook}>Book</button>
           </div>
-        </section>
+        </div>
       </section>
-    </Layout>
+    </section>
   )
 }

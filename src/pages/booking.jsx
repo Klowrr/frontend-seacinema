@@ -1,6 +1,5 @@
 import React, { useEffect,useState } from 'react'
 import { useBooking } from '../context/booking-context'
-import Layout from '../layouts/layout'
 import { toast } from 'react-toastify'
 import axios from '../api/axios'
 import { useNavigate } from 'react-router-dom'
@@ -71,75 +70,72 @@ export default function Booking() {
     return newSeats;
   }
   return (
-    <Layout>
-      <section className='mx-auto max-w-lg p-4 space-y-8 lg:space-y-0 lg:max-w-none lg:grid lg:grid-cols-[1fr_auto_1fr] lg:gap-4'>
-        <section className='justify-center'>
-          <h1 className='text-xl font-bold'>{movieData.title}</h1>
-          <div className='flex gap-4 my-2'>
-            <div className='flex items-center gap-2 '>
-              <div className='w-5 h-5 cursor-pointer rounded-md flex justify-center items-center shadow-lg text-white bg-green-500'/>
-              <h6>Selected</h6>
-            </div>
-            <div className='flex items-center gap-2 '>
-              <div className='w-5 h-5 cursor-pointer rounded-md flex justify-center items-center shadow-lg bg-gray-300 text-gray-900'/>
-              <h6>Booked</h6>
-            </div>
-            <div className='flex items-center gap-2 '>
-              <div className='w-5 h-5 cursor-pointer rounded-md flex justify-center items-center shadow-lg text-gray-700 border-2'/>
-              <h6>Available</h6>
-            </div>
+    <section className='mx-auto max-w-lg p-4 space-y-8 lg:space-y-0 lg:max-w-none lg:grid lg:grid-cols-[1fr_auto_1fr] lg:gap-4'>
+      <section className='justify-center'>
+        <h1 className='text-xl font-bold'>{movieData.title}</h1>
+        <div className='flex gap-4 my-2'>
+          <div className='flex items-center gap-2 '>
+            <div className='w-5 h-5 cursor-pointer rounded-md flex justify-center items-center shadow-lg text-white bg-green-500'/>
+            <h6>Selected</h6>
           </div>
-          <div className='hidden lg:block'>
-            <img src={movieData.poster} alt="moviePoster"className='w-[15rem] rounded-lg my-3'/>
-            <h4>Description</h4>
-            <p>{movieData.description}</p>
+          <div className='flex items-center gap-2 '>
+            <div className='w-5 h-5 cursor-pointer rounded-md flex justify-center items-center shadow-lg bg-gray-300 text-gray-900'/>
+            <h6>Booked</h6>
           </div>
-        </section>
-        <section className=''>
-          <div className='overflow-x-auto'>
-            <div className='bg-yellow-500 h-10 w-[30rem] flex justify-center items-center font-bold my-4'>SCREEN</div>
-            <div className='grid grid-cols-8 w-[30rem] justify-items-center mx-auto'>
-              {renderSeats()}
-            </div>
+          <div className='flex items-center gap-2 '>
+            <div className='w-5 h-5 cursor-pointer rounded-md flex justify-center items-center shadow-lg text-gray-700 border-2'/>
+            <h6>Available</h6>
           </div>
-        </section>
-        <section>
-          <table className='table-fixed w-full border-separate border-spacing-3'>
-            <tbody>
-              <tr className='border-b border-gray-200'>
-                <td>Booker</td>
-                <td>: {user.name}</td>
-              </tr>
-              <tr className='border-b border-gray-200'>
-                <td className='align-top'>Time</td>
-                <td>: {getFullDate(showtimeData.date)}</td>
-              </tr>
-              <tr className='border-b border-gray-200'> 
-                <td>Cost</td>
-                <td>: Rp. {movieData.price}</td>
-              </tr>
-              <tr className='border-b border-gray-200'>
-                <td className=''>Seats</td>
-                <td>:
-                  {selectedSeats.length===0?<span>Select Seat</span>:
-                    selectedSeats.map((seat) => (
-                      <span key={seat}> {seat} </span>
-                    ))
-                  }
-                </td>
-              </tr>
-              <tr className='border-b border-gray-200'>
-                <td>Total</td>
-                <td>: Rp. {total}</td>
-              </tr>
-
-            </tbody>
-            
-          </table>
-          <button className='btn-primary w-full my-6' onClick={(e)=>Payment(e)}>Book Now</button>
-        </section>
+        </div>
+        <div className='hidden lg:block'>
+          <img src={movieData.poster} alt="moviePoster"className='w-[15rem] rounded-lg my-3'/>
+          <h4>Description</h4>
+          <p>{movieData.description}</p>
+        </div>
       </section>
-      
-    </Layout>
+      <section className=''>
+        <div className='overflow-x-auto'>
+          <div className='bg-yellow-500 h-10 w-[30rem] flex justify-center items-center font-bold my-4'>SCREEN</div>
+          <div className='grid grid-cols-8 w-[30rem] justify-items-center mx-auto'>
+            {renderSeats()}
+          </div>
+        </div>
+      </section>
+      <section>
+        <table className='table-fixed w-full border-separate border-spacing-3'>
+          <tbody>
+            <tr className='border-b border-gray-200'>
+              <td>Booker</td>
+              <td>: {user.name}</td>
+            </tr>
+            <tr className='border-b border-gray-200'>
+              <td className='align-top'>Time</td>
+              <td>: {getFullDate(showtimeData.date)}</td>
+            </tr>
+            <tr className='border-b border-gray-200'> 
+              <td>Cost</td>
+              <td>: Rp. {movieData.price}</td>
+            </tr>
+            <tr className='border-b border-gray-200'>
+              <td className=''>Seats</td>
+              <td>:
+                {selectedSeats.length===0?<span>Select Seat</span>:
+                  selectedSeats.map((seat) => (
+                    <span key={seat}> {seat} </span>
+                  ))
+                }
+              </td>
+            </tr>
+            <tr className='border-b border-gray-200'>
+              <td>Total</td>
+              <td>: Rp. {total}</td>
+            </tr>
+
+          </tbody>
+          
+        </table>
+        <button className='btn-primary w-full my-6' onClick={(e)=>Payment(e)}>Book Now</button>
+      </section>
+    </section>
   )
 }

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import Layout from '../layouts/layout'
 import { useAuth } from '../context/auth-context'
 import axios from '../api/axios'
 import { toast } from 'react-toastify'
@@ -21,17 +20,15 @@ export function Profile() {
     }
   },[location])
   return (
-    <Layout>
-      <section>
-        <nav className='flex gap-2 justify-center my-5'>
-          <NavLink to='/profile'  className={`${profileActive? activeLinkStyle:''}`}>Profile</NavLink>
-          <NavLink to='wallet'className={`${profileActive? '':activeLinkStyle}`} >Wallet</NavLink>
-        </nav>
-        <section className='px-4'>
-          <Outlet/>
-        </section>
+    <section>
+      <nav className='flex gap-2 justify-center my-5'>
+        <NavLink to='/profile'  className={`${profileActive? activeLinkStyle:''}`}>Profile</NavLink>
+        <NavLink to='wallet'className={`${profileActive? '':activeLinkStyle}`} >Wallet</NavLink>
+      </nav>
+      <section className='px-4'>
+        <Outlet/>
       </section>
-    </Layout>
+    </section>
   )
 }
 
