@@ -1,36 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useAuth } from '../context/auth-context'
 import axios from '../api/axios'
 import { toast } from 'react-toastify'
-import { NavLink, Outlet, useLocation } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowUpFromBracket, faBuildingColumns } from '@fortawesome/free-solid-svg-icons'
 import TransactionList from '../components/transaction/transactionList'
-
-export function Profile() {
-  let location = useLocation();
-  const [profileActive, setProfileActive] = useState(true)
-  const activeLinkStyle = "border-b-2 border-blue-300 text-blue-700"
-
-  useEffect(() => {
-    if (location.pathname === '/profile') {
-      setProfileActive(true)
-    }else {
-      setProfileActive(false)
-    }
-  },[location])
-  return (
-    <section>
-      <nav className='flex gap-2 justify-center my-5'>
-        <NavLink to='/profile'  className={`${profileActive? activeLinkStyle:''}`}>Profile</NavLink>
-        <NavLink to='wallet'className={`${profileActive? '':activeLinkStyle}`} >Wallet</NavLink>
-      </nav>
-      <section className='px-4'>
-        <Outlet/>
-      </section>
-    </section>
-  )
-}
 
 export const MyProfile = () => {
   const { user,signOut } = useAuth()

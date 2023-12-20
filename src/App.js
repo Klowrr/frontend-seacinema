@@ -2,7 +2,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Home from './pages/home';
 import Login from './pages/login';
 import Register from './pages/register';
-import { Profile, MyProfile, MyWallet } from './pages/profile';
+import { MyProfile, MyWallet } from './pages/profile';
 import MovieDetail from './pages/movieDetail';
 import { AuthContextProvider } from './context/auth-context';
 import { BookingContextProvider } from './context/booking-context';
@@ -11,6 +11,7 @@ import ProtectedRoute from './utils/protectedRoute';
 import Booking from './pages/booking';
 import LayoutTicket from './layouts/layoutTicket';
 import Layout from './layouts/layout';
+import LayoutProfile from './layouts/layoutProfile';
 function App() {
   return (
     <BrowserRouter>
@@ -28,8 +29,8 @@ function App() {
                   <Route path='canceled' element={<TicketsCanceled/>}/>
                 </Route>
                 <Route path='/transactions' element={<Booking/>} />
-                <Route path='/profile' element={<Profile/>}>
-                  <Route index element={<MyProfile/>}/>
+                <Route path='/profile' element={<LayoutProfile/>}>
+                  <Route path='me' element={<MyProfile/>}/>
                   <Route path='wallet' element={<MyWallet/>}/>
                 </Route>
               </Route>

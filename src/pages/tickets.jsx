@@ -8,7 +8,7 @@ export function TicketsActive() {
     axios
     .get(`/tickets`)
     .then((res)=>{
-      setTicket(res.data)
+      setTicket(res.data.filter((item)=>item.status==='active'))
     })
     .catch((err)=>{
       console.log(err)
@@ -28,7 +28,7 @@ export function TicketsPassed() {
     axios
     .get(`/tickets`)
     .then((res)=>{
-      setTicket(res.data)
+      setTicket(res.data.filter((item)=>item.status==='used'))
     })
     .catch((err)=>{
       console.log(err)
@@ -48,13 +48,12 @@ export function TicketsCanceled() {
     axios
     .get(`/tickets`)
     .then((res)=>{
-      setTicket(res.data)
+      setTicket(res.data.filter((item)=>item.status==='refunded'))
     })
     .catch((err)=>{
       console.log(err)
     })
   },[])
-
   return (
     <section>
       <TicketList ticket={ticket}/>

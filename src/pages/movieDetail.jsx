@@ -8,28 +8,31 @@ import { faStar } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useBooking } from '../context/booking-context';
 import { toast } from 'react-toastify';
+
 export default function MovieDetail() {
-  const [movie, setMovie] = useState([]);
+  const [movie, setMovie] = useState({});
   const [showtime, setShowtime] = useState({});
   const [loading, setLoading] = useState(true);
   const { setMovieData, setShowtimeData } = useBooking()
   const { id } = useParams();
   const navigate = useNavigate();
+
   useEffect(() => {
-      axios
-      .get(`/movies/${id}`)
-      .then((res)=>{
-        setMovie(res.data)
-      })
-      .catch((err)=>{
-        console.log(err.response.data.message)
-      })
-      .finally(()=>{
-        setLoading(false)
-      })
+    axios
+    .get(`/movies/${id}`)
+    .then((res)=>{
+      setMovie(res.data)
+    })
+    .catch((err)=>{
+      console.log(err.response.data.message)
+    })
+    .finally(()=>{
+      setLoading(false)
+    })
   }, [id]);
 
-  const handleBook = () => {
+  const handleBook = (e) => {
+    e.preventDefault()
     if (Object.keys(showtime).length === 0) return toast.warn('Please select showtime first')
     setMovieData(movie)
     setShowtimeData(showtime)

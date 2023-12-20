@@ -1,29 +1,24 @@
 import React from 'react'
-import { useLocation, Outlet, NavLink } from 'react-router-dom'
-
-const navTicket = [
+import { useLocation } from 'react-router-dom';
+import { NavLink,Outlet } from 'react-router-dom';
+const navProfile = [
   {
-    name:'Upcoming',
-    path:'upcoming'
+    name:'Profile',
+    path:'me'
   },
   {
-    name:'Passed',
-    path:'passed'
-  },
-  {
-    name:'Canceled',
-    path:'canceled'
+    name:'Wallet',
+    path:'wallet'
   },
 ]
-
-export default function LayoutTicket() {
+export default function LayoutProfile() {
   let location = useLocation();
   return (
-    <>
-      <nav className='flex gap-4 justify-center my-5'>
-        {navTicket.map((item,index)=>{
+    <section>
+      <nav className='flex gap-2 justify-center my-5'>
+        {navProfile.map((item,index)=>{
           let activeLinkStyle = ''
-          if (location.pathname === `/tickets/${item.path}`){
+          if (location.pathname === `/profile/${item.path}`){
             activeLinkStyle = "border-b-2 border-blue-300 text-blue-700"
           } 
           return (
@@ -34,6 +29,6 @@ export default function LayoutTicket() {
       <section className='px-4'>
         <Outlet/>
       </section>
-    </>
+    </section>
   )
 }

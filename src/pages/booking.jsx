@@ -13,7 +13,6 @@ export default function Booking() {
   const navigate = useNavigate();
   const { user } = useAuth()
   const total = selectedSeats.length * movieData.price
-
   useEffect(() => {
     if (showtimeData.length === 0 || movieData.length === 0) {
       navigate('/')
@@ -130,11 +129,9 @@ export default function Booking() {
               <td>Total</td>
               <td>: Rp. {total}</td>
             </tr>
-
           </tbody>
-          
         </table>
-        <button className='btn-primary w-full my-6' onClick={(e)=>Payment(e)}>Book Now</button>
+        <button className='btn-primary w-full my-6' onClick={Payment}>Book Now</button>
       </section>
     </section>
   )

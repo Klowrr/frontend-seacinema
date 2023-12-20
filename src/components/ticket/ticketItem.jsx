@@ -1,10 +1,29 @@
 import React from 'react'
 import { getTimeDate,getDayDateShort } from '../../utils/processDate'
+import axios from '../../api/axios'
+import { toast } from 'react-toastify'
 
 export default function TicketItem({ticketData}) {
-  const { movie,showtime,booking_seat, ticket_code } = ticketData
+  const { _id ,movie,showtime,booking_seat, ticket_code, status } = ticketData
+  const activeTicket = status==='active'
+  const Refund = (e) => {
+    e.preventDefault()
+    axios
+    .patch('/refund-ticket',{
+      ticket_id:_id
+    })
+    .then((res)=>{
+      toast.success(res.data.message)
+    })
+    .catch((err)=>{
+      toast.error(err.response.data.message)
+    })
+    .finally(()=>{
+      window.location.reload()
+    })
+  }
   return (
-    <div className='grid grid-cols-[100px_1fr] sm:grid-cols-[150px_1fr] bg-gray-100 shadow-md rounded-md'>
+    <div className='grid grid-cols-[100px_1fr] sm:grid-cols-[150px_1fr] bg-gray-100 shadow-md rounded-md group relative hover:shadow-lg'>
       <img src={movie.poster} alt={movie.title} className='w-full h-full object-cover'/>
       <article className='p-2 items-center grid grid-rows-[auto_auto_auto] my-auto'>
         <div className='grid grid-cols-2 gap-2 text-center w-full py-5'>
@@ -25,10 +44,22 @@ export default function TicketItem({ticketData}) {
             <p className='font-semibold'>{booking_seat.join(', ')}</p>
           </div>
         </div>
-        <div className=' border-b-2 border-dashed border-black'/>
-        <div className='text-center py-2'>
-          <h2 className='font-bold text-lg bg-'>Ticket Code: {ticket_code}</h2>
-        </div>
+        {activeTicket ? (
+          <>
+            <div className=' border-b-2 border-dashed border-black'/>
+            <div className='text-center py-2'>
+              <h2>Ticket Code</h2>
+              <h2 className='font-bold text-lg'>{ticket_code}</h2>
+              {activeTicket && <button onClick={Refund} className='absolute right-4 bottom-2 group-hover:block hover:bg-blue-600 hidden bg-blue-400 px-2 rounded font-semibold text-white'>Refund</button>}
+            </div>
+          </>
+        ):(
+          <div className='text-center py-2'>
+            <h2 className='font-bold text-lg'>Status: {status}</h2>
+          </div>
+        )
+        }
+        
       </article>
     </div>
   )

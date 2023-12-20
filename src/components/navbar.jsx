@@ -27,13 +27,13 @@ const Navbar = () => {
               </button>
               <nav
                 id="navbarCollapse"
-                className={`absolute right-4 top-full w-full max-w-[250px] rounded-lg bg-white px-6 py-5 shadow dark:bg-dark-2 lg:static lg:block lg:w-full lg:max-w-full lg:shadow-none lg:dark:bg-transparent ${
+                className={`absolute z-10 right-4 top-full w-full max-w-[250px] rounded-lg bg-white px-6 py-5 shadow dark:bg-dark-2 lg:static lg:block lg:w-full lg:max-w-full lg:shadow-none lg:dark:bg-transparent ${
                   !open && "hidden"
                 } `}
               >
                 <ul className="block lg:flex">
                   <ListItem NavLink="/" className='hidden lg:block'>Home</ListItem>
-                  <ListItem NavLink="/profile" className='lg:hidden'>Profile</ListItem>
+                  <ListItem NavLink="/profile/me" className='sm:hidden'>Profile</ListItem>
                   <ListItem NavLink="/tickets/upcoming">Ticket</ListItem>
                   <ListItem NavLink="/about">About</ListItem>
                 </ul>
