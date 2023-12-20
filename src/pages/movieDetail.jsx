@@ -24,7 +24,7 @@ export default function MovieDetail() {
       setMovie(res.data)
     })
     .catch((err)=>{
-      console.log(err.response.data.message)
+      console.error(err.response.data.message)
     })
     .finally(()=>{
       setLoading(false)

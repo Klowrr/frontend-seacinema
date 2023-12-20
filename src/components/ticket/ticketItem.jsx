@@ -4,7 +4,7 @@ import axios from '../../api/axios'
 import { toast } from 'react-toastify'
 
 export default function TicketItem({ticketData}) {
-  const { _id ,movie,showtime,booking_seat, ticket_code, status } = ticketData
+  const { _id , movie, showtime, booking_seat, ticket_code, status } = ticketData
   const activeTicket = status==='active'
   const Refund = (e) => {
     e.preventDefault()
@@ -23,7 +23,7 @@ export default function TicketItem({ticketData}) {
     })
   }
   return (
-    <div className='grid grid-cols-[100px_1fr] sm:grid-cols-[150px_1fr] bg-gray-100 shadow-md rounded-md group relative hover:shadow-lg'>
+    <div className='grid grid-cols-[100px_1fr] sm:grid-cols-[150px_1fr] bg-gray-100 shadow-md rounded-lg overflow-hidden group relative hover:shadow-lg'>
       <img src={movie.poster} alt={movie.title} className='w-full h-full object-cover'/>
       <article className='p-2 items-center grid grid-rows-[auto_auto_auto] my-auto'>
         <div className='grid grid-cols-2 gap-2 text-center w-full py-5'>

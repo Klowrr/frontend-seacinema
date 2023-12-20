@@ -9,7 +9,7 @@ export default function ShowtimeList({movieId, setShowtime, showtime}) {
       .then((res)=>{
         setShowtimes(res.data)
       }).catch((err)=>{
-        console.log(err.response.data.message)
+        console.error(err.response.data.message)
       })
   },[movieId])
   if (showtimes.length === 0) return

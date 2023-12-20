@@ -33,7 +33,7 @@ const Navbar = () => {
               >
                 <ul className="block lg:flex">
                   <ListItem NavLink="/" className='hidden lg:block'>Home</ListItem>
-                  <ListItem NavLink="/profile/me" className='sm:hidden'>Profile</ListItem>
+                  <ListItem NavLink="/profile/me" className='sm:hidden lg:hidden'>Profile</ListItem>
                   <ListItem NavLink="/tickets/upcoming">Ticket</ListItem>
                   <ListItem NavLink="/about">About</ListItem>
                 </ul>
@@ -41,7 +41,7 @@ const Navbar = () => {
             </div>
             <div className="hidden justify-end items-center pr-16 sm:flex lg:pr-0">
               {isAuthenticated ? (
-                <Link to='/profile'>Halo {user.name}</Link>
+                <Link to='/profile/me'>Halo {user.name}</Link>
               ):(
                 <>
                   <Link

@@ -49,12 +49,12 @@ const initialState = {
   user: null
 }
 export function AuthContextProvider({children}) {
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(true)
   const [state, dispatch] = useReducer(reducer, initialState)
   const navigate = useNavigate()
+
   useEffect(() => {
     if(localStorage.getItem('SEACINEMA_TOKEN')) {
-      setLoading(true)
       axios.get('/me')
       .then((res)=>{
         dispatch({
@@ -66,7 +66,7 @@ export function AuthContextProvider({children}) {
         });
       })
       .catch((err)=>{
-        console.log(err)
+        console.error(err)
         dispatch({
           type: ACTIONS.INITIALIZE,
           payload: {
@@ -89,8 +89,8 @@ export function AuthContextProvider({children}) {
       setLoading(false)
     }
   },[])
+
   const login = (username , password) => {
-    setLoading(true)
     axios.post("/login", {
       username: username,
       password: password,
@@ -103,16 +103,15 @@ export function AuthContextProvider({children}) {
         }
       });
       navigate('/')
+      window.location.reload()
       toast.success("Login Success")
     }).catch((err) => {
       toast.error(err.response.data.message)
     }).finally(()=>{
       setLoading(false)
-      window.location.reload()
     })
   }
   const register = (data) => {
-    setLoading(true)
     axios
     .post("/register", data)
     .then((res)=>{

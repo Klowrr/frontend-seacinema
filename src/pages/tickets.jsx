@@ -11,7 +11,7 @@ export function TicketsActive() {
       setTicket(res.data.filter((item)=>item.status==='active'))
     })
     .catch((err)=>{
-      console.log(err)
+      console.error(err)
     })
   },[])
 
@@ -31,7 +31,7 @@ export function TicketsPassed() {
       setTicket(res.data.filter((item)=>item.status==='used'))
     })
     .catch((err)=>{
-      console.log(err)
+      console.error(err)
     })
   },[])
 
@@ -51,7 +51,7 @@ export function TicketsCanceled() {
       setTicket(res.data.filter((item)=>item.status==='refunded'))
     })
     .catch((err)=>{
-      console.log(err)
+      console.error(err)
     })
   },[])
   return (

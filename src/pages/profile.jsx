@@ -68,7 +68,8 @@ export const MyWallet = () => {
     setShowButton(!showButton)
     setValue(0)
   }
-  const handleTopUp = ()=>{
+  const handleTopUp = (e)=>{
+    e.preventDefault()
     axios
     .post('/transactions/topup',{
       total:value
@@ -77,15 +78,13 @@ export const MyWallet = () => {
       toast.success(`Top Up Success`)
     })
     .catch((err)=>{
-      console.log(err.response.data.message)
+      console.error(err.response.data.message)
       toast.error(`Top Up Failed`)
-    })
-    .finally(()=>{
-      window.location.reload()
     })
   }
 
-  const handleWithdraw = ()=>{
+  const handleWithdraw = (e)=>{
+    e.preventDefault()
     axios
     .post('/transactions/withdraw',{
       total:value
@@ -94,11 +93,8 @@ export const MyWallet = () => {
       toast.success(`Withdraw Success`)
     })
     .catch((err)=>{
-      console.log(err.response.data.message)
+      console.error(err.response.data.message)
       toast.error(`Withdraw Failed`)
-    })
-    .finally(()=>{
-      window.location.reload()
     })
   }
   return (

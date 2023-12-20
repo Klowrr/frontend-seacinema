@@ -1,16 +1,13 @@
 import React,{ useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useAuth } from '../context/auth-context';
-import { useNavigate } from 'react-router-dom';
 export default function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const { login, loading } = useAuth();
-  const navigate = useNavigate();
   const handleSubmit = async(e) => {
     e.preventDefault()
     login(username, password)
-    navigate('/')
   }
   return (
     <section className='grid lg:grid-cols-2 min-h-screen bg-gray-200 px-5 md:px-0 md:gap-5'>
