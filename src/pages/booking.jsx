@@ -9,8 +9,8 @@ import { getFullDate} from '../utils/processDate'
 export default function Booking() {
   const { showtimeData, movieData } = useBooking()
   const [selectedSeats, setSelectedSeats] = useState([]);
-  console.log(showtimeData, movieData)
   const [seats,setSeats] = useState("")
+  const [loading, setLoading] = useState(false)
   const navigate = useNavigate();
   const { user } = useAuth()
   const total = selectedSeats.length * movieData.price
@@ -23,6 +23,7 @@ export default function Booking() {
 
   const Payment = (e) => {
     e.preventDefault()
+    setLoading(true)
     if (selectedSeats.length===0) {
       toast.warn('Please select your seat first')
       return
@@ -33,10 +34,11 @@ export default function Booking() {
       booking_seat: selectedSeats,
     }).then((res)=>{
       toast.success(res.data.message)
-      navigate('/ticket')
+      navigate('/tickets/upcoming')
     }).catch((err)=>{
       toast.error(err.response.data.message)
     })
+    .finally(()=>setLoading(false))
   }
   const toggleSeatSelection = (seatKey) => {
     if (selectedSeats.includes(seatKey)) {
@@ -132,7 +134,7 @@ export default function Booking() {
             </tr>
           </tbody>
         </table>
-        <button className='btn-primary w-full my-6' onClick={Payment}>Book Now</button>
+        <button className='btn-primary w-full my-6' onClick={Payment}>{loading?"Loading...":"Book Now"}</button>
       </section>
     </section>
   )
