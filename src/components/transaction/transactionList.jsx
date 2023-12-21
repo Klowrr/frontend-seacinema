@@ -4,6 +4,7 @@ import TransactionItem from './transactionItem'
 
 export default function TransactionList() {
   const [transaction , setTransaction] = useState([])
+  const [loading, setLoading] = useState(true)
   useEffect(()=>{
     axios
     .get(`/transactions`)
@@ -13,7 +14,9 @@ export default function TransactionList() {
     .catch((err)=>{
       console.error(err)
     })
+    .finally(()=>setLoading(false))
   },[])
+  if (loading) return <p className='text-center'>Loading...</p>
   return (
     <section className='flex flex-col'>
       {transaction.map((item)=>{

@@ -8,7 +8,7 @@ import { faStar } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useBooking } from '../context/booking-context';
 import { toast } from 'react-toastify';
-
+import Skeleton from 'react-loading-skeleton';
 export default function MovieDetail() {
   const [movie, setMovie] = useState({});
   const [showtime, setShowtime] = useState({});
@@ -38,16 +38,15 @@ export default function MovieDetail() {
     setShowtimeData(showtime)
     navigate('/transactions')
   }
-  if(loading) return <p className='text-center
-  '>Loading...</p>
   return (
     <section className='max-w-4xl md:mx-auto space-y-4 my-4 mx-5 rounded-lg'>
       <Link to='/'>&lt; Back</Link>
       <section className='flex flex-wrap shadow-lg'>
-        <img src={movie.poster} className='object-cover h-[50vh] md:h-[70vh] mx-auto lg:mx-0' alt='movie-poster'/>
+        {loading ? <Skeleton width={300} height={450}/> :<img src={movie.poster} className='object-cover h-[50vh] md:h-[70vh] mx-auto lg:mx-0' alt='movie-poster'/>}
         <div className='p-4 flex flex-col justify-between flex-1'>
           <section className='space-y-4'>
             <div>
+              {loading && <Skeleton width={200} height={20}/>}
               <h1 className='text-2xl font-bold'>{movie.title} <span className='text-sm font-normal'>{getDayDate(movie.release_date)}</span></h1>
               <div className='mt-2'><span className='bg-blue-300 px-2 rounded'>R {movie.age_rating}</span></div>
             </div>
@@ -58,10 +57,12 @@ export default function MovieDetail() {
             </div>
             <div>
               <h3 className='font-bold text-lg'>Description</h3>
+              {loading && <Skeleton width={200} height={20}/>}
               <p>{movie.description}</p>
             </div>
             <div>
               <h3 className='font-bold text-lg'>Showtimes</h3>
+              {loading && <Skeleton width={200} height={20}/>}
               <ShowtimeList movieId={id} setShowtime={setShowtime} showtime={showtime}/>
             </div>
           </section>

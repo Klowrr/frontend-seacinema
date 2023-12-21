@@ -9,6 +9,7 @@ import { getFullDate} from '../utils/processDate'
 export default function Booking() {
   const { showtimeData, movieData } = useBooking()
   const [selectedSeats, setSelectedSeats] = useState([]);
+  console.log(showtimeData, movieData)
   const [seats,setSeats] = useState("")
   const navigate = useNavigate();
   const { user } = useAuth()

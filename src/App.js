@@ -12,6 +12,7 @@ import Booking from './pages/booking';
 import LayoutTicket from './layouts/layoutTicket';
 import Layout from './layouts/layout';
 import LayoutProfile from './layouts/layoutProfile';
+import About from './pages/about';
 function App() {
   return (
     <BrowserRouter>
@@ -21,7 +22,7 @@ function App() {
             <Route path="/" element={<Layout/>}>
               <Route index element={<Home/>}/>
               <Route path='/movie/:id' element={<MovieDetail/>}/>
-              <Route path='/about' element={<h1>About</h1>} />
+              <Route path='/about' element={<About/>} />
               <Route element={<ProtectedRoute/>}>
                 <Route path='/tickets' element={<LayoutTicket/>}>
                   <Route index path='upcoming' element={<TicketsActive/>}/>
