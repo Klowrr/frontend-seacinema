@@ -38,7 +38,8 @@ export default function MovieDetail() {
     setShowtimeData(showtime)
     navigate('/transactions')
   }
-  if(loading) return <p>Loading...</p>
+  if(loading) return <p className='text-center
+  '>Loading...</p>
   return (
     <section className='max-w-4xl md:mx-auto space-y-4 my-4 mx-5 rounded-lg'>
       <Link to='/'>&lt; Back</Link>
