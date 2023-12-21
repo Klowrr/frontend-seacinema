@@ -59,9 +59,11 @@ export const MyProfile = () => {
 export const MyWallet = () => {
   const { user } = useAuth()
   const [ value, setValue ] = useState(0)
+  const [loading , setLoading] = useState(false)
   const [showInput, setShowInput] = useState(false)
   const [showButton, setShowButton] = useState(true)
   const [isTopup, setIsTopup] = useState(false)
+
   const toggleMode = (isTopup) => {
     setIsTopup(isTopup)
     setShowInput(!showInput)
@@ -70,6 +72,7 @@ export const MyWallet = () => {
   }
   const handleTopUp = (e)=>{
     e.preventDefault()
+    setLoading(true)
     axios
     .post('/transactions/topup',{
       total:value
@@ -81,10 +84,16 @@ export const MyWallet = () => {
       console.error(err.response.data.message)
       toast.error(`Top Up Failed`)
     })
+    .finally(()=>{
+      setValue(0)
+      setLoading(false)
+      window.location.reload()
+    })
   }
 
   const handleWithdraw = (e)=>{
     e.preventDefault()
+    setLoading(true)
     axios
     .post('/transactions/withdraw',{
       total:value
@@ -95,6 +104,11 @@ export const MyWallet = () => {
     .catch((err)=>{
       console.error(err.response.data.message)
       toast.error(`Withdraw Failed`)
+    })
+    .finally(()=>{
+      setValue(0)
+      setLoading(false)
+      window.location.reload()
     })
   }
   return (
@@ -107,7 +121,7 @@ export const MyWallet = () => {
         <h1 className='text-white text-lg font-bold'>{isTopup?'Top Up': 'Withdraw'}</h1>
         <input type="number" placeholder="Value" className={`input-text w-full`}  onChange={(e)=>setValue(e.target.value)}/>
         <div className='flex items-center gap-2 justify-end'>
-          <button className='btn-primary' onClick={isTopup?handleTopUp:handleWithdraw}>{isTopup?'Top Up': 'Withdraw'}</button>
+          <button className='btn-primary' onClick={isTopup?handleTopUp:handleWithdraw}>{loading?'Loading..':isTopup?'Top Up': 'Withdraw'}</button>
           <button onClick={()=>toggleMode()} className='btn-light'>Cancel</button>
         </div>
       </section>
