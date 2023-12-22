@@ -18,7 +18,7 @@ export default function ShowtimeList({movieId, setShowtime, showtime}) {
   if (showtimes.length === 0) return
   if (loading) return <p className='text-center'>Loading...</p>
   return (
-    <section className='space-x-3'>
+    <section className='flex gap-2 flex-wrap '>
       {showtimes.map((item)=>{
         const getTime = getTimeDate(item.date)
         return (

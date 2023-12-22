@@ -1,10 +1,26 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../context/auth-context";
 
 const Navbar = () => {
   const {user, isAuthenticated} = useAuth()
   const [open, setOpen] = useState(false);
+  const mobileNav = useRef(null);
+  const hamburger = useRef(null);
+
+  useEffect(() => {
+    const handleOutsideClick = (event) => {
+      if(open && !hamburger.current.contains(event.target)) {
+        if (!mobileNav.current.contains(event.target)) {
+          setOpen(!open);
+        }
+      }
+    };
+    document.addEventListener("click", handleOutsideClick);
+    return () => {
+      document.removeEventListener("click", handleOutsideClick);
+    };
+  }, [open]);
   return (
     <header className={`flex w-full items-center h-[10vh] shadow-md`}>
       <div className="container">
@@ -18,6 +34,7 @@ const Navbar = () => {
             <div>
               <button
                 onClick={() => setOpen(!open)}
+                ref={hamburger}
                 id="navbarToggler"
                 className={`absolute right-4 top-1/2 block -translate-y-1/2 rounded-lg px-3 py-[6px] ring-primary focus:ring-2 lg:hidden`}
               >
@@ -27,13 +44,14 @@ const Navbar = () => {
               </button>
               <nav
                 id="navbarCollapse"
+                ref={mobileNav}
                 className={`absolute z-10 right-4 top-full w-full max-w-[250px] rounded-lg bg-white px-6 py-5 shadow dark:bg-dark-2 lg:static lg:block lg:w-full lg:max-w-full lg:shadow-none lg:dark:bg-transparent ${
                   !open && "hidden"
                 } `}
               >
                 <ul className="block lg:flex">
                   <ListItem NavLink="/" className='hidden lg:block'>Home</ListItem>
-                  <ListItem NavLink="/profile/me" className='sm:hidden lg:hidden'>Profile</ListItem>
+                  <ListItem NavLink="/profile/me" className='sm:hidden lg:hidden'>{isAuthenticated?'Profile':'Login'}</ListItem>
                   <ListItem NavLink="/tickets/upcoming">Ticket</ListItem>
                   <ListItem NavLink="/about">About</ListItem>
                 </ul>

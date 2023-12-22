@@ -10,7 +10,6 @@ export default function Booking() {
   const { showtimeData, movieData } = useBooking()
   const [selectedSeats, setSelectedSeats] = useState([]);
   const [seats,setSeats] = useState("")
-  const [loading, setLoading] = useState(false)
   const navigate = useNavigate();
   const { user } = useAuth()
   const total = selectedSeats.length * movieData.price
@@ -21,24 +20,29 @@ export default function Booking() {
     setSeats(showtimeData.seats)
   }, [showtimeData, movieData, navigate])
 
-  const Payment = (e) => {
+  const Payment = async(e) => {
     e.preventDefault()
-    setLoading(true)
     if (selectedSeats.length===0) {
-      toast.warn('Please select your seat first')
+      toast.warn('Please select seat first')
       return
     }
-    axios.post('/transactions', {
-      movie_id: movieData._id,
-      show_time_id: showtimeData._id,
-      booking_seat: selectedSeats,
-    }).then((res)=>{
-      toast.success(res.data.message)
-      navigate('/tickets/upcoming')
-    }).catch((err)=>{
-      toast.error(err.response.data.message)
-    })
-    .finally(()=>setLoading(false))
+    const promise = new Promise((resolve) => 
+      axios.post('/transactions', {
+        movie_id: movieData._id,
+        show_time_id: showtimeData._id,
+        booking_seat: selectedSeats,
+      })
+      .then((res)=>{
+        resolve(res.data)
+        navigate('/tickets/upcoming')
+      })
+    )
+
+    toast.promise(promise, {
+      pending: 'Please wait...',
+      success: 'you successfully booked the ticket',
+      error: 'Error! Please try again'
+    });
   }
   const toggleSeatSelection = (seatKey) => {
     if (selectedSeats.includes(seatKey)) {
@@ -134,7 +138,7 @@ export default function Booking() {
             </tr>
           </tbody>
         </table>
-        <button className='btn-primary w-full my-6' onClick={Payment}>{loading?"Loading...":"Book Now"}</button>
+        <button className='btn-primary w-full my-6' onClick={Payment}>Book Now</button>
       </section>
     </section>
   )

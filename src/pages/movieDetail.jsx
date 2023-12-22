@@ -43,7 +43,7 @@ export default function MovieDetail() {
       <Link to='/'>&lt; Back</Link>
       <section className='flex flex-wrap shadow-lg'>
         {loading ? <Skeleton width={300} height={450}/> :<img src={movie.poster} className='object-cover h-[50vh] md:h-[70vh] mx-auto lg:mx-0' alt='movie-poster'/>}
-        <div className='p-4 flex flex-col justify-between flex-1'>
+        <div className='p-4 flex flex-col justify-between flex-1 min-w-[300px]'>
           <section className='space-y-4'>
             <div>
               {loading && <Skeleton width={200} height={20}/>}
@@ -62,7 +62,6 @@ export default function MovieDetail() {
             </div>
             <div>
               <h3 className='font-bold text-lg'>Showtimes</h3>
-              {loading && <Skeleton width={200} height={20}/>}
               <ShowtimeList movieId={id} setShowtime={setShowtime} showtime={showtime}/>
             </div>
           </section>
