@@ -10,10 +10,7 @@ export default function Login() {
     login(username, password)
   }
   return (
-    <section className='grid lg:grid-cols-2 min-h-screen bg-gray-200 px-5 md:px-0 md:gap-5'>
-      <div className='order-2 overflow-hidden h-screen hidden lg:block  w-full'>
-        <img src="/assets/movieposter.jpg" alt='movie_poster' className='w-full h-full object-top object-cover'/>
-      </div>
+    <section className='flex justify-center items-center min-h-screen px-5 md:px-0 md:gap-5 bg-gradient-to-r from-cyan-500 to-blue-500'>
       <div className='bg-white px-5 py-7 rounded-lg text-center order-1 h-fit my-auto max-w-lg mx-auto w-full'>
         <h1 className='text-2xl font-bold mb-10'>LOGIN</h1>
         <form onSubmit={handleSubmit} className='flex flex-col space-y-4'>

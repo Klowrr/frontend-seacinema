@@ -27,26 +27,23 @@ export default function Register() {
     register(data)
   }
   return (
-    <section className='grid lg:grid-cols-2 min-h-screen bg-gray-200 px-5 md:px-0 md:gap-5'>
-      <div className='order-2 overflow-hidden h-screen hidden lg:block  w-full'>
-        <img src="/assets/movieposter.jpg" alt='movie_poster' className='w-full h-full object-top object-cover'/>
-      </div>
+    <section className='flex justify-center items-center min-h-screen bg-gray-200 px-5 md:px-0 md:gap-5 bg-gradient-to-r from-cyan-500 to-blue-500'>
       <div className='bg-white px-5 py-7 rounded-lg text-center order-1 h-fit my-auto max-w-lg mx-auto w-full'>
         <h1 className='text-2xl font-bold mb-10'>REGISTER</h1>
         <form onSubmit={handleSubmit} className='flex flex-col space-y-4'>
-          <div className='flex gap-2'>
+          <div className='grid grid-cols-3 gap-2'>
             <input 
               type='text' 
               placeholder='Name' 
               name='name' 
-              className='input-text flex-1' 
+              className='input-text col-span-2' 
               onChange={handleChange}
             />
             <input 
               type='number' 
               placeholder='Age' 
               name='age' 
-              className='input-text w-3/12' 
+              className='input-text' 
               onChange={handleChange}
             />
           </div>

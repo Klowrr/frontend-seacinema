@@ -27,7 +27,7 @@ const Navbar = () => {
         <div className="relative mx-4 flex items-center justify-between">
           <div className="w-fit max-w-full px-4">
             <Link to='/'>
-              <h1 className="font-bold text-xl">SEACINEMA</h1>
+              <h1 className="font-bold text-2xl bg-gradient-to-r from-cyan-500 to-blue-500 bg-clip-text text-transparent">SEACINEMA</h1>
             </Link>
           </div>
           <div className="flex w-full items-center justify-between px-4">
