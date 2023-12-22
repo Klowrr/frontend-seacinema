@@ -23,8 +23,8 @@ export default function TicketItem({ticketData}) {
     })
   }
   return (
-    <div className='grid grid-cols-[100px_1fr] sm:grid-cols-[150px_1fr] bg-gray-100 shadow-md rounded-lg overflow-hidden group relative hover:shadow-lg'>
-      <img src={movie.poster} alt={movie.title} className='w-full h-full object-cover'/>
+    <div className='grid md:grid-cols-[150px_1fr] grid-cols-1 bg-gray-100 shadow-md rounded-lg overflow-hidden group relative hover:shadow-lg'>
+      <img src={movie.poster} alt={movie.title} className='w-full h-full object-cover hidden md:block'/>
       <article className='p-2 items-center grid grid-rows-[auto_auto_auto] my-auto'>
         <div className='grid grid-cols-2 gap-2 text-center w-full py-5'>
           <div>
