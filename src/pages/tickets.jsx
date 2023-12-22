@@ -1,9 +1,11 @@
 import React, { useEffect, useState} from 'react'
 import TicketList from '../components/ticket/ticketList'
 import axios from '../api/axios'
+import { LineWave } from 'react-loader-spinner'
 
 export function TicketsActive() {
   const [ticket, setTicket] = useState([])
+  const [loading, setLoading] = useState(true)
   useEffect(()=>{
     axios
     .get(`/tickets`)
@@ -13,8 +15,18 @@ export function TicketsActive() {
     .catch((err)=>{
       console.error(err)
     })
+    .finally(()=>setLoading(false))
   },[])
-
+  if (loading) return (
+    <div className='flex justify-center'>
+      <LineWave 
+        color='#34a1eb' 
+        visible={true}
+        height="100"
+        width="100"
+      />
+    </div>
+  )
   return (
     <section>
       <TicketList ticket={ticket}/>
@@ -24,6 +36,7 @@ export function TicketsActive() {
 
 export function TicketsPassed() {
   const [ticket, setTicket] = useState([])
+  const [loading, setLoading] = useState(true)
   useEffect(()=>{
     axios
     .get(`/tickets`)
@@ -33,8 +46,18 @@ export function TicketsPassed() {
     .catch((err)=>{
       console.error(err)
     })
+    .finally(()=>setLoading(false))
   },[])
-
+  if (loading) return (
+    <div className='flex justify-center'>
+      <LineWave 
+        color='#34a1eb' 
+        visible={true}
+        height="100"
+        width="100"
+      />
+    </div>
+  )
   return (
     <section>
       <TicketList ticket={ticket}/>
@@ -44,6 +67,7 @@ export function TicketsPassed() {
 
 export function TicketsCanceled() {
   const [ticket, setTicket] = useState([])
+  const [loading, setLoading] = useState(true)
   useEffect(()=>{
     axios
     .get(`/tickets`)
@@ -53,7 +77,18 @@ export function TicketsCanceled() {
     .catch((err)=>{
       console.error(err)
     })
+    .finally(()=>setLoading(false))
   },[])
+  if (loading) return (
+    <div className='flex justify-center'>
+      <LineWave 
+        color='#34a1eb' 
+        visible={true}
+        height="100"
+        width="100"
+      />
+    </div>
+  )
   return (
     <section>
       <TicketList ticket={ticket}/>
