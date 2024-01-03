@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useAuth } from '../context/auth-context'
 import axios from '../api/axios'
 import { toast } from 'react-toastify'
@@ -57,12 +57,23 @@ export const MyProfile = () => {
 }
 
 export const MyWallet = () => {
-  const { user } = useAuth()
+  const [user, setUser] = useState({})
   const [ value, setValue ] = useState(0)
   const [loading , setLoading] = useState(false)
   const [showInput, setShowInput] = useState(false)
   const [showButton, setShowButton] = useState(true)
   const [isTopup, setIsTopup] = useState(false)
+
+  useEffect(() => {
+    axios
+    .get('/me')
+    .then((res)=>{
+      setUser(res.data)
+    })
+    .catch((err)=>{
+      console.error(err.response.data.message)
+    })
+  }, [showInput])
 
   const toggleMode = (isTopup) => {
     setIsTopup(isTopup)
@@ -79,6 +90,7 @@ export const MyWallet = () => {
     })
     .then((res)=>{
       toast.success(`Top Up Success`)
+      toggleMode()
     })
     .catch((err)=>{
       console.error(err.response.data.message)
@@ -87,7 +99,6 @@ export const MyWallet = () => {
     .finally(()=>{
       setValue(0)
       setLoading(false)
-      window.location.reload()
     })
   }
 
@@ -100,6 +111,7 @@ export const MyWallet = () => {
     })
     .then((res)=>{
       toast.success(`Withdraw Success`)
+      toggleMode()
     })
     .catch((err)=>{
       console.error(err.response.data.message)
@@ -108,7 +120,6 @@ export const MyWallet = () => {
     .finally(()=>{
       setValue(0)
       setLoading(false)
-      window.location.reload()
     })
   }
   return (
@@ -119,7 +130,7 @@ export const MyWallet = () => {
       </section>
       <section className={`${showInput ? 'block':'hidden'} space-y-4 bg-blue-400 p-4 rounded-lg`}>
         <h1 className='text-white text-lg font-bold'>{isTopup?'Top Up': 'Withdraw'}</h1>
-        <input type="number" placeholder="Value" className={`input-text w-full`}  onChange={(e)=>setValue(e.target.value)}/>
+        <input type="number" placeholder="Value" value={value} className={`input-text w-full`}  onChange={(e)=>setValue(e.target.value)}/>
         <div className='flex items-center gap-2 justify-end'>
           <button className='btn-primary' onClick={isTopup?handleTopUp:handleWithdraw}>{loading?'Loading..':isTopup?'Top Up': 'Withdraw'}</button>
           <button onClick={()=>toggleMode()} className='btn-light'>Cancel</button>
