@@ -13,6 +13,7 @@ import LayoutTicket from './layouts/layoutTicket';
 import Layout from './layouts/layout';
 import LayoutProfile from './layouts/layoutProfile';
 import About from './pages/about';
+
 function App() {
   return (
     <BrowserRouter>

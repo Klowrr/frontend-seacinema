@@ -62,7 +62,7 @@ export default function MovieDetail() {
             </div>
             <div>
               <h3 className='font-bold text-lg'>Showtimes</h3>
-              <ShowtimeList movieId={id} setShowtime={setShowtime} showtime={showtime}/>
+              <ShowtimeList movieId={id} setShowtime={setShowtime} showtime={showtime} loadingMovie={loading}/>
             </div>
           </section>
           <div className='flex items-center justify-end gap-4'>

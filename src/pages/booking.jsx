@@ -76,7 +76,7 @@ export default function Booking() {
     return newSeats;
   }
   return (
-    <section className='mx-auto max-w-lg p-4 space-y-8 lg:space-y-0 lg:max-w-none lg:grid lg:grid-cols-[1fr_auto_1fr] lg:gap-4'>
+    <section className='mx-auto max-w-lg p-4 space-y-8 lg:space-y-0 lg:max-w-none lg:grid lg:grid-cols-[1fr_auto_1fr] lg:gap-10'>
       <section className='justify-center'>
         <h1 className='text-xl font-bold'>{movieData.title}</h1>
         <div className='flex gap-4 my-2'>
@@ -95,7 +95,7 @@ export default function Booking() {
         </div>
         <div className='hidden lg:block'>
           <img src={movieData.poster} alt="moviePoster"className='w-[15rem] rounded-lg my-3'/>
-          <h4>Description</h4>
+          <h4 className='font-semibold text-lg'>Description</h4>
           <p>{movieData.description}</p>
         </div>
       </section>
@@ -107,7 +107,7 @@ export default function Booking() {
           </div>
         </div>
       </section>
-      <section>
+      <section className='container shadow-lg rounded-xl p-4 h-fit'>
         <table className='table-fixed w-full border-separate border-spacing-3'>
           <tbody>
             <tr className='border-b border-gray-200'>
@@ -138,7 +138,7 @@ export default function Booking() {
             </tr>
           </tbody>
         </table>
-        <button className='btn-primary w-full my-6' onClick={Payment}>Book Now</button>
+        <button className='btn-primary w-full mt-10' onClick={Payment}>Book Now</button>
       </section>
     </section>
   )

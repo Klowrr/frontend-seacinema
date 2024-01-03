@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import axios from '../../api/axios'
 import { getTimeDate } from '../../utils/processDate';
-export default function ShowtimeList({movieId, setShowtime, showtime}) {
+
+export default function ShowtimeList({movieId, setShowtime, showtime, loadingMovie}) {
   const [showtimes, setShowtimes] = useState([]);
   const [loading, setLoading] = useState(true)
+
   useEffect(() => {
     axios
       .get(`/showtimes/${movieId}`)
@@ -15,8 +17,9 @@ export default function ShowtimeList({movieId, setShowtime, showtime}) {
       })
       .finally(()=>setLoading(false))
   },[movieId])
-  if (showtimes.length === 0) return
-  if (loading) return <p className='text-center'>Loading...</p>
+
+  if (loading && loadingMovie) return <p>Loading...</p>
+  if (showtimes.length === 0) return <p>No showtimes available</p>
   return (
     <section className='flex gap-2 flex-wrap '>
       {showtimes.map((item)=>{

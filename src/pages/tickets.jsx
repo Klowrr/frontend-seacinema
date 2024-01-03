@@ -1,7 +1,7 @@
 import React, { useEffect, useState} from 'react'
 import TicketList from '../components/ticket/ticketList'
 import axios from '../api/axios'
-import { LineWave } from 'react-loader-spinner'
+import { ThreeDots } from 'react-loader-spinner'
 
 export function TicketsActive() {
   const [ticket, setTicket] = useState([])
@@ -19,11 +19,11 @@ export function TicketsActive() {
   },[])
   if (loading) return (
     <div className='flex justify-center'>
-      <LineWave 
+      <ThreeDots
         color='#34a1eb' 
         visible={true}
-        height="100"
-        width="100"
+        height="50"
+        width="50"
       />
     </div>
   )
@@ -50,11 +50,11 @@ export function TicketsPassed() {
   },[])
   if (loading) return (
     <div className='flex justify-center'>
-      <LineWave 
+      <ThreeDots 
         color='#34a1eb' 
         visible={true}
-        height="100"
-        width="100"
+        height="50"
+        width="50"
       />
     </div>
   )
@@ -81,11 +81,11 @@ export function TicketsCanceled() {
   },[])
   if (loading) return (
     <div className='flex justify-center'>
-      <LineWave 
+      <ThreeDots 
         color='#34a1eb' 
         visible={true}
-        height="100"
-        width="100"
+        height="50"
+        width="50"
       />
     </div>
   )
