@@ -4,7 +4,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import ShowtimeList from '../components/showtime/showtimeList';
 import { getDayDate } from '../utils/processDate';
 import { Link } from 'react-router-dom';
-import { faStar } from '@fortawesome/free-solid-svg-icons';
+import { faStar, faChevronCircleLeft } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useBooking } from '../context/booking-context';
 import { toast } from 'react-toastify';
@@ -40,24 +40,27 @@ export default function MovieDetail() {
   }
   return (
     <section className='max-w-4xl md:mx-auto space-y-4 my-4 mx-5 rounded-lg'>
-      <Link to='/'>&lt; Back</Link>
+      <Link to='/'>
+        <FontAwesomeIcon icon={faChevronCircleLeft} size='lg' className='m-auto'/>
+      </Link>
       <section className='flex flex-wrap shadow-lg'>
-        {loading ? <Skeleton width={300} height={450}/> :<img src={movie.poster} className='object-cover h-[50vh] md:h-[70vh] mx-auto lg:mx-0' alt='movie-poster'/>}
+        {loading ? <Skeleton width={300} height={450}/> :<img src={movie.poster} className='object-cover h-[450px] md:h-[450px] mx-auto lg:mx-0 ' width={300} height={450} alt='movie-poster'/>}
         <div className='p-4 flex flex-col justify-between flex-1 min-w-[300px]'>
           <section className='space-y-4'>
             <div>
-              {loading && <Skeleton width={200} height={20}/>}
-              <h1 className='text-2xl font-bold'>{movie.title} <span className='text-sm font-normal'>{getDayDate(movie.release_date)}</span></h1>
-              <div className='mt-2'><span className='bg-blue-300 px-2 rounded'>R {movie.age_rating}</span></div>
+              {loading ? <Skeleton width={200} height={20}/> : 
+                <h1 className='text-2xl font-bold'>{movie.title} <span className='text-sm font-normal'>{getDayDate(movie.release_date)}</span></h1>
+              }
+              <div className='mt-2'><span className='bg-blue-300 px-2 rounded'>R {loading ? 'x':movie.age_rating}</span></div>
             </div>
             <div className='flex items-center space-x-2'>
               <h1 className='text-lg font-bold '> Rating :</h1>
               <FontAwesomeIcon icon={faStar} size='sm' className='text-yellow-400'/>
-              <p>({movie.rating})</p>
+              <p>({loading ? 'x' :movie.rating})</p>
             </div>
             <div>
               <h3 className='font-bold text-lg'>Description</h3>
-              {loading && <Skeleton width={200} height={20}/>}
+              {loading && <Skeleton width={300} height={50}/>}
               <p>{movie.description}</p>
             </div>
             <div>

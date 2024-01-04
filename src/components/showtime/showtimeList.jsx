@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import axios from '../../api/axios'
 import { getTimeDate } from '../../utils/processDate';
+import Skeleton from 'react-loading-skeleton';
+
 
 export default function ShowtimeList({movieId, setShowtime, showtime, loadingMovie}) {
   const [showtimes, setShowtimes] = useState([]);
@@ -18,10 +20,20 @@ export default function ShowtimeList({movieId, setShowtime, showtime, loadingMov
       .finally(()=>setLoading(false))
   },[movieId])
 
-  if (loading && loadingMovie) return <p>Loading...</p>
+  if (loading || loadingMovie){
+    return(
+      <div className='flex gap-2 flex-wrap my-4'>
+        {Array(6).fill(0).map((_,i)=>
+          <div key={i} className='rouded-lg'>
+            <Skeleton height={25} width={50}/>
+          </div>
+        )}
+      </div>
+    )
+  }
   if (showtimes.length === 0) return <p>No showtimes available</p>
   return (
-    <section className='flex gap-2 flex-wrap '>
+    <section className='flex gap-2 flex-wrap my-4'>
       {showtimes.map((item)=>{
         const getTime = getTimeDate(item.date)
         return (
